@@ -1,5 +1,5 @@
 import pandas as pd
-from prepare import CSV_PATH, load_dataset, clean_data, apply_IQR
+from prepare import CSV_PATH, load_dataset, clean_data, apply_IQR_to_single_column
 from stats_functions import (
     genre_popularity,
     artist_popularity,
@@ -24,8 +24,7 @@ def load_menu() -> pd.DataFrame | None:
         return None
 
     try:
-        df = clean_data(df)
-        return apply_IQR(df)
+        return clean_data(df)
     except Exception as e:
         print("Failed to load dataset:", e)
         return None
@@ -44,8 +43,9 @@ def analyze_feature_correlation(df: pd.DataFrame):
         print("Invalid choice.")
     else:
         selected_feature = FEATURES[int(choice) - 1]
-        covariance_check(df, selected_feature)
-        pearson_corr(df, selected_feature)
+        df_iqr = apply_IQR_to_single_column(df, selected_feature)
+        covariance_check(df_iqr, selected_feature)
+        pearson_corr(df_iqr, selected_feature)
 
 def menu():
     df = None

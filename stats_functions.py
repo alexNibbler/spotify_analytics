@@ -55,14 +55,16 @@ custom_colors = [
 
 
 def genre_popularity(df: pd.DataFrame):
-    top_genres = df["genre"].value_counts().nlargest(10).index.tolist()
-    df_top_genres = df[df["genre"].isin(top_genres)]
-    trend = df_top_genres.groupby(["year", "genre"])["popularity"].mean().reset_index()
+    genre_year_pop = df.groupby(["year", "genre"], observed=False)["popularity"].sum().reset_index()
+    top_genres = genre_year_pop.groupby("genre", observed=False)["popularity"].sum().nlargest(10)
+    print(top_genres)
+    top_genres_names = top_genres.index.tolist()
+    genre_year_top = genre_year_pop[genre_year_pop["genre"].isin(top_genres_names)]
 
     plt.figure(figsize=(12, 6))
 
-    for i, genre in enumerate(top_genres):
-        genre_data = trend[trend["genre"] == genre]
+    for i, genre in enumerate(top_genres_names):
+        genre_data = genre_year_top[genre_year_top["genre"] == genre]
         plt.plot(genre_data["year"], genre_data["popularity"], label=genre, color=custom_colors[i])
 
     plt.title("Average Popularity of Top 10 Genres Over Time")
@@ -75,21 +77,23 @@ def genre_popularity(df: pd.DataFrame):
 
 
 def artist_popularity(df: pd.DataFrame):
-    top_artists = df["artist"].value_counts().nlargest(10).index.tolist()
-    df_top_artists = df[df["artist"].isin(top_artists)]
-    trend = df_top_artists.groupby(["year", "artist"])["popularity"].mean().reset_index()
+    artist_year_pop = df.groupby(["year", "artist"], observed=False)["popularity"].sum().reset_index()
+    top_artists = artist_year_pop.groupby("artist", observed=False)["popularity"].sum().nlargest(10)
+    print(top_artists)
+    top_artists_names = top_artists.index.tolist()
+    artist_year_top = artist_year_pop[artist_year_pop["artist"].isin(top_artists_names)]
 
     plt.figure(figsize=(12, 6))
 
-    for i, genre in enumerate(top_artists):
-        genre_data = trend[trend["artist"] == genre]
-        plt.plot(genre_data["year"], genre_data["popularity"], label=genre, color=custom_colors[i])
+    for i, artist in enumerate(top_artists_names):
+        artist_data = artist_year_top[artist_year_top["artist"] == artist]
+        plt.plot(artist_data["year"], artist_data["popularity"], label=artist, color=custom_colors[i])
 
     plt.title("Average Popularity of Top 10 Artists Over Time")
     plt.xlabel("Year")
     plt.ylabel("Popularity")
     plt.grid(True)
-    plt.legend(title="Genre")
+    plt.legend(title="Artist")
     plt.tight_layout()
     plt.show()
 

@@ -66,3 +66,9 @@ def apply_IQR(df: pd.DataFrame):
     print("Original rows:", len(df), " | After IQR:", len(df_iqr))
 
     return df_iqr
+
+def apply_IQR_to_single_column(df: pd.DataFrame, col_name: str):
+    mask = iqr_filter(df[col_name])
+    df_iqr = df[mask].copy()
+    print("Original rows:", len(df), " | After IQR:", len(df_iqr))
+    return df_iqr
