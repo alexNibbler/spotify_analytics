@@ -1,15 +1,14 @@
 # spotify_analytics
-Data analytics project on Spotify music 2010-2019 dataset. Here is the dataset source and description https://www.kaggle.com/datasets/leonardopena/top-spotify-songs-from-20102019-by-year
+
+## Project Goal
+
+The goal of the project is to find a recipe for the ultimate chart hit according to several song features. As the input, we use Spotify music 2010-2019 dataset. Here is the dataset source and description https://www.kaggle.com/datasets/leonardopena/top-spotify-songs-from-20102019-by-year
 
 Here are the directions we'll try to analyze:
 1. What audio features correlate with popularity? 
 2. Trends in genres over the years 
 3. Trends in artists over the years 
 4. Compare popular tracks vs less popular tracks in terms of their characteristics (e.g. tempo, energy, etc.)
-
-## Conclusions
-
-We analized most popular genres and artists for the whole period the dataset is about. 
 
 **Most popular genres are:**
 
@@ -43,7 +42,7 @@ We analized most popular genres and artists for the whole period the dataset is 
 
 ## t-test - Compare popular tracks vs less popular tracks in terms of their characteristics
 
-According to t-test more popular tracks tend to be less energetic and mor danceable
+We start with a hypothesis that mean feature is the same for popular and less popular tracks. According to t-test, the hypothesis could not be proved, so more popular tracks tend to be less energetic and more danceable.
 
 | Feature       | Popular_mean | LessPopular_mean | t         | p         | Conclusion                                 |
 |:-------------|:-------------|:-----------------|:----------|:----------|:--------------------------------------------|
@@ -61,3 +60,7 @@ According to t-test more popular tracks tend to be less energetic and mor dancea
 ## Correlation - What audio features correlate with popularity?
 
 No correlation was found between tracks popularity and musical features
+
+## Conclusions
+
+Unfortunately, we could not find an ultimate recipe of 100% hit, which shows it's a very creative job to be a songwriter and music producer.
